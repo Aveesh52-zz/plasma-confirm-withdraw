@@ -2,7 +2,7 @@ specVersion: 0.0.2
 description: plasma-confirm-withdraw
 repository: https://github.com/Aveesh52/plasma-confirm-withdraw
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Plasma Confirm Withdraw
@@ -17,8 +17,8 @@ dataSources:
         - ConfirmEntity
       abis:
         - name: WithdrawManager
-          file: ./abis/WithdrawManger.json
+          file: Plasma Confirm Withdraw/abis/WithdrawManger.json
       eventHandlers:
-         - event: ExitStarted(indexed address,indexed uint256,indexed address,uint256,bool)
-           handler: handleConfirmWithdraw
-      file: ./src/mapping.ts
+        - event: ExitStarted(indexed address,indexed uint256,indexed address,uint256,bool)
+          handler: handleConfirmWithdraw
+      file: Plasma Confirm Withdraw/Plasma Confirm Withdraw.wasm

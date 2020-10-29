@@ -1,22 +1,19 @@
-import { NewGravatar, UpdatedGravatar } from '../generated/Gravity/Gravity'
-import { Gravatar } from '../generated/schema'
+import { ExitStarted } from '../generated/Plasma Confirm Withdraw/WithdrawManager'
+//import { toDecimal } from './numbers'
+import { ConfirmEntity } from '../generated/schema'
+ 
 
-export function handleNewGravatar(event: NewGravatar): void {
-  let gravatar = new Gravatar(event.params.id.toHex())
-  gravatar.owner = event.params.owner
-  gravatar.displayName = event.params.displayName
-  gravatar.imageUrl = event.params.imageUrl
-  gravatar.save()
-}
+// token, from, amount, to
+export function handleConfirmWithdraw(event: ExitStarted): void {
+   
+  let confirmrEntity = new ConfirmEntity(event.transaction.hash.toHex());
+  confirmrEntity.exitor = event.params.exitor
+  confirmrEntity.exitId = event.params.exitId 
+  confirmrEntity.rootToken = event.params.token
+  confirmrEntity.exitAmountOrTokenId = event.params.amount
+  confirmrEntity.isRegularExit = event.params.isRegularExit
+  confirmrEntity.transaction = event.transaction.hash
 
-export function handleUpdatedGravatar(event: UpdatedGravatar): void {
-  let id = event.params.id.toHex()
-  let gravatar = Gravatar.load(id)
-  if (gravatar == null) {
-    gravatar = new Gravatar(id)
-  }
-  gravatar.owner = event.params.owner
-  gravatar.displayName = event.params.displayName
-  gravatar.imageUrl = event.params.imageUrl
-  gravatar.save()
+  
+  confirmrEntity.save()
 }
